@@ -1,3 +1,5 @@
+// Abel Ibarra
+
 package com.example.app5_2023_24;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -7,9 +9,9 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
-
 public class MainActivity extends AppCompatActivity {
 
     private Spinner sp1;
@@ -18,6 +20,9 @@ public class MainActivity extends AppCompatActivity {
     private Button clean_btn;
     private Button exit_btn;
     private Button calculate_btn;
+    private RadioButton rb1;
+    private RadioButton rb2;
+    private RadioButton rb3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,12 +36,16 @@ public class MainActivity extends AppCompatActivity {
         sp1.setAdapter(adaptar);
 
         n1 = (EditText) findViewById(R.id.n1);
-        n2 = (EditText) findViewById(R.id.n1);
+        n2 = (EditText) findViewById(R.id.n2);
         result = (TextView) findViewById(R.id.result);
 
         clean_btn = (Button) findViewById(R.id.clean_btn);
         exit_btn = (Button) findViewById(R.id.exit_btn);
         calculate_btn = (Button) findViewById(R.id.calculate_btn);
+
+        rb1 = (RadioButton) findViewById(R.id.rb1);
+        rb2 = (RadioButton) findViewById(R.id.rb2);
+        rb3 = (RadioButton) findViewById(R.id.rb3);
     }
 
     public void calcular(View view) { // agafa nomes els valors de n1
@@ -134,6 +143,16 @@ public class MainActivity extends AppCompatActivity {
                     NumberFormatException e) { // Per si fiques caracters no valids, en aquest cas deixar en blanc
                 result.setText("Ingresa numeros valids");
             }
+        }
+    }
+
+    public void font(View view){
+        if(rb1.isChecked()){
+            result.setTextSize(20);
+        } if(rb2.isChecked()){
+            result.setTextSize(24);
+        } if(rb3.isChecked()){
+            result.setTextSize(34);
         }
     }
 
