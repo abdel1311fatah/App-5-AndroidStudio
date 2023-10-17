@@ -4,6 +4,7 @@ package com.example.app5_2023_24;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -12,6 +13,7 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
+
 public class MainActivity extends AppCompatActivity {
 
     private Spinner sp1;
@@ -23,6 +25,9 @@ public class MainActivity extends AppCompatActivity {
     private RadioButton rb1;
     private RadioButton rb2;
     private RadioButton rb3;
+    private RadioButton rb4;
+    private RadioButton rb5;
+    private RadioButton rb6;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +51,9 @@ public class MainActivity extends AppCompatActivity {
         rb1 = (RadioButton) findViewById(R.id.rb1);
         rb2 = (RadioButton) findViewById(R.id.rb2);
         rb3 = (RadioButton) findViewById(R.id.rb3);
+        rb4 = (RadioButton) findViewById(R.id.rb4);
+        rb5 = (RadioButton) findViewById(R.id.rb5);
+        rb6 = (RadioButton) findViewById(R.id.rb6);
     }
 
     public void calcular(View view) { // agafa nomes els valors de n1
@@ -115,14 +123,13 @@ public class MainActivity extends AppCompatActivity {
             try {
                 long n1 = Long.parseLong(valor1);
                 long n2 = Long.parseLong(valor2);
+                long resultat = 1;
 
                 for (int i = 0; i < n2; i++) {
-                    n1 *= n1;
+                    resultat *= n1;
                 }
 
-                long elevar = n1;
-
-                String resultat_elevar = String.valueOf(elevar);
+                String resultat_elevar = String.valueOf(resultat);
                 result.setText(resultat_elevar);
 
             } catch (
@@ -146,18 +153,36 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void font(View view){
-        if(rb1.isChecked()){
+    public void fontSize(View view) {
+        if (rb1.isChecked()) {
             result.setTextSize(20);
-        } if(rb2.isChecked()){
+        } else if (rb2.isChecked()) {
             result.setTextSize(24);
-        } if(rb3.isChecked()){
+        } else if (rb3.isChecked()) {
             result.setTextSize(34);
         }
     }
 
+    public void font(View view) {
+        // https://stackoverflow.com/questions/20142852/set-custom-fonts-in-strings
+        //Creem la carpeta de assets, dins de la de assets la de fonts, aixo dins del src del main, li fiquem els arxius .ttf del tipus de lletra que volguem ficar,
+        //llavors creem un objecte de tipus Typeface del tipus de lletra que volem, llavors amb el setTypeface li fiquem el Typeface del tipus de lletra que volem
+        try {
+            if (rb4.isChecked()) {
+                Typeface arialFont = Typeface.createFromAsset(getAssets(), "fonts/Arial.ttf");
+                result.setTypeface(arialFont);
+            } else if (rb5.isChecked()) {
+                Typeface latoFont = Typeface.createFromAsset(getAssets(), "fonts/Lato.ttf");
+                result.setTypeface(latoFont);
+            } else if (rb6.isChecked()) {
+                Typeface calibriFont = Typeface.createFromAsset(getAssets(), "fonts/calibri.ttf");
+                result.setTypeface(calibriFont);
+            }
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+        }
+    }
     public void clean(View view) {
-
         n1.setText(""); //neteje el texte de l edittext
         n2.setText("");
         result.setText("");
